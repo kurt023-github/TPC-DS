@@ -58,38 +58,49 @@ echo "RUN_MULTI_USER: $RUN_MULTI_USER"
 echo "RUN_MULTI_USER_REPORT: $RUN_MULTI_USER_REPORT"
 echo "############################################################################"
 echo ""
+rm -f $PWD/steps
 if [ "$RUN_COMPILE_TPCDS" == "true" ]; then
 	rm -f $PWD/log/end_compile_tpcds.log
+	echo "00_compile_tpcds" >> $PWD/steps
 fi
 if [ "$RUN_GEN_DATA" == "true" ]; then
 	rm -f $PWD/log/end_gen_data.log
+	echo "01_gen_data" >> $PWD/steps
 fi
 if [ "$RUN_INIT" == "true" ]; then
 	rm -f $PWD/log/end_init.log
+	echo "02_init" >> $PWD/steps
 fi
 if [ "$RUN_DDL" == "true" ]; then
 	rm -f $PWD/log/end_ddl.log
+	echo "03_ddl" >> $PWD/steps
 fi
 if [ "$RUN_LOAD" == "true" ]; then
 	rm -f $PWD/log/end_load.log
+	echo "04_load" >> $PWD/steps
 fi
 if [ "$RUN_SQL" == "true" ]; then
 	rm -f $PWD/log/end_sql.log
+	echo "05_sql" >> $PWD/steps
 fi
 if [ "$RUN_SINGLE_USER_REPORT" == "true" ]; then
 	rm -f $PWD/log/end_single_user_reports.log
+	echo "06_single_user_reports" >> $PWD/steps
 fi
 if [ "$RUN_MULTI_USER" == "true" ]; then
 	rm -f $PWD/log/end_testing_*.log
+	echo "07_multi_user" >> $PWD/steps
 fi
 if [ "$RUN_MULTI_USER_REPORT" == "true" ]; then
 	rm -f $PWD/log/end_multi_user_reports.log
+	echo "08_multi_user_reports" >> $PWD/steps
 fi
 if [ "$RUN_SCORE" == "true" ]; then
 	rm -f $PWD/log/end_score.log
+	echo "09_score" >> $PWD/steps
 fi
 
-for i in $(ls -d $PWD/0*); do
+for i in $(cat $PWD/steps); do
 	echo "$i/rollout.sh"
 	$i/rollout.sh $GEN_DATA_SCALE $EXPLAIN_ANALYZE $RANDOM_DISTRIBUTION $MULTI_USER_COUNT $SINGLE_USER_ITERATIONS
 done

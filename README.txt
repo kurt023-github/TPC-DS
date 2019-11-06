@@ -40,13 +40,13 @@ Installation
 ssh gpadmin@mdw; sudo bash
 
 2. Download the tpcds.sh file
-curl https://raw.githubusercontent.com/pivotalguru/TPC-DS/master/tpcds.sh > tpcds.sh
+curl https://raw.githubusercontent.com/kurt023-github/TPC-DS/master/tpcds.sh > tpcds.sh
 chmod 755 tpcds.sh
 
 ########################################################################################
 Variables and Configuration
 ########################################################################################
-By default, the installation will create the scripts in /pivotalguru/TPC-DS on the 
+By default, the installation will create the scripts in /TPC-DS on the 
 Master host.  This can be changed by editing the dynamically configured 
 tpcds_variables.sh file that is created the first time tpcds.sh is run.  
 
@@ -65,6 +65,7 @@ nohup ./tpcds.sh > tpcds.log 2>&1 < tpcds.log &
 Notes
 ########################################################################################
 - tpcds_variables.sh file will be created with variables you can adjust
+- If you want to use local scripts, change REPO_URL in tpcds_variables.sh to ""
 - Files for the benchmark will be created in a sub-directory named pivotalguru located 
 in each segment directory on each segment host / data node.
 You can update these directories to be symbolic links to better utilize the disk 
@@ -172,7 +173,7 @@ find the column.
 This was done on query 86.
 
 4.  Added table aliases.
-This was done on queries: 2, 14, and 23.
+This was done on queries: 2, 14, 23 and 49.
 
 5.  Added "limit 100" to very large result set queries.  For the larger tests (e.g. 15TB), a few of the 
 TPC-DS queries can output a very large number of rows which are just discarded.  
